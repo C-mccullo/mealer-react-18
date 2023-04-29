@@ -3,17 +3,17 @@ const userController = require('../controllers/userController');
 const recipeController = require('../controllers/recipeController');
 
 // RECIPES
-router.get("/api/recipes",
+router.get("/recipes",
   userController.isAuthorized,
   recipeController.getRecipes
 );
 
-router.post("/api/recipes",
+router.post("/recipes",
   userController.isAuthorized,
   recipeController.postRecipe
 );
 
-router.delete("/api/recipes/:id",
+router.delete("/recipes/:id",
   userController.isAuthorized,
   recipeController.deleteRecipe
 );

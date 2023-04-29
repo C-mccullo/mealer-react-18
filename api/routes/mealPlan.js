@@ -3,12 +3,12 @@ const userController = require('../controllers/userController');
 const mealPlanController = require('../controllers/mealPlanController');
 
 // MEAL PLAN
-router.get("/api/mealPlan",
+router.get("/mealplan",
   userController.isAuthorized,
   mealPlanController.getMealPlan
 );
 
-router.put("/api/mealPlan/:day",
+router.put("/mealplan/:day",
   userController.isAuthorized,
   mealPlanController.restoreUnusedFoodItems,
   mealPlanController.updateFoodItems,

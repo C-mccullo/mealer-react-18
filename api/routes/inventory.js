@@ -3,18 +3,18 @@ import * as foodItemController from '../controllers/foodItemController';
 import * as userController from '../controllers/userController';
 const router = Router();
 // INVENTORY
-router.get('/api/foods',
+router.get('/foods',
   userController.isAuthorized,
   foodItemController.getFoods
 );
 
-router.post('/api/foods/',
+router.post('/foods',
   userController.isAuthorized,
   foodItemController.checkIngredientExist,
   foodItemController.checkByExpiry
 );
 
-router.delete('/api/foods/:id',
+router.delete('/foods/:id',
   userController.isAuthorized,
   foodItemController.deleteFood
 );

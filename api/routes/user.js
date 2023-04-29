@@ -6,14 +6,14 @@ const User = require('../models/UserModel');
 const passport = require("passport");
 
 // USERS
-router.get('/api/getme', userController.checkUser);
+router.get('/getme', userController.checkUser);
 
-router.get('/api/users', (req, res) => {
+router.get('/users', (req, res) => {
   User.find()
     .then((docs) => res.send(docs));
 });
 
-router.post('/api/signup',
+router.post('/signup',
   userController.sanitizeUser,
   userController.registerUser,
   passport.authenticate("local"), // should passport be in its own auth middleware?
@@ -21,11 +21,11 @@ router.post('/api/signup',
   userController.sendUser
 );
 
-router.post('/api/login',
+router.post('/login',
   passport.authenticate("local"),
   userController.sendUser
 );
 
-router.get('/api/logout', userController.logoutUser);
+router.get('/logout', userController.logoutUser);
 
 module.exports = router;

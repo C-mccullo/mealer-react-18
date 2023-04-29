@@ -5,11 +5,11 @@ import userController from '../controllers/userController';
 
 const router = Router();
 
-router.get("/api/ingredientList", IngredientController.getIngredients);
+router.get("/ingredientList", IngredientController.getIngredients);
 
-router.get("/api/search/ingredientList", IngredientController.searchIngredients);
+router.get("/ingredientList/search", IngredientController.searchIngredients);
 
-router.post("/api/ingredientList",
+router.post("/ingredientList",
   userController.isAuthorized,
   IngredientController.postIngredient
 );

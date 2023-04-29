@@ -8,6 +8,8 @@ import mongoose from 'mongoose';
 import * as usersRouter from './routes/user';
 import * as ingredientRouter from './routes/ingredient';
 import * as inventoryRouter from './routes/inventory';
+import * as mealPlanRouter from './routes/mealPlan';
+import * as recipeRouter from './routes/recipe';
 
 import errorHandler from './middlewares/errorHandler';
 
@@ -25,9 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoConnect()
   .catch(err => console.log(err));
 
-app.use('/ingredient', ingredientRouter);
-app.use('/user', usersRouter);
-app.use('/inventory', inventoryRouter);
+app.use('api/v1/ingredient', ingredientRouter);
+app.use('api/v1/user', usersRouter);
+app.use('api/v1/inventory', inventoryRouter);
+app.use('api/v1/mealplan', mealPlanRouter);
+app.use('api/v1/recipe', recipeRouter);
 
 
 app.get('*', (req, res, next) => {

@@ -1,25 +1,11 @@
-import { useState } from 'react'
-import { MealerContextProvider } from '../store/mealerContext';
+import { MealerContextProvider } from './store/mealerContext';
+import Header from './components/Header';
+import './styles/index.scss'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <MealerContextProvider>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </MealerContextProvider>
-  )
-}
+const App = () => (
+  <MealerContextProvider>
+    <Header/>
+  </MealerContextProvider>
+)
 
 export default App

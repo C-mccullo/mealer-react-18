@@ -38,74 +38,107 @@ async function populateIngredients() {
   });
 }
 
+// get a user and apply these food items to that users account
+
+async function getUser() {
+  const data = await fetch("/api/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .catch(err => {
+      console.log(err)
+      return
+    })
+  return data;
+}
+
+const user = getUser()
+
 const foods = [
   {
+    user: user._id,
     ingredient: ingredients.tomatoes._id,
     quantity: 5,
     portions: 2,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.milk._id,
     quantity: 1,
     portions: 10,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.pasta._id,
     quantity: 3,
     portions: 6,
     expiry: null
   },
   {
+    user: user._id,
     ingredient: ingredients.thaiChickenSoup._id,
     quantity: 1,
     portions: 1,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.sproutedGrainBread._id,
     quantity: 1,
     portions: 12,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.orangeJuice._id,
     quantity: 1,
     portions: 10,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.chocoMuffin._id,
     quantity: 1,
     portions: 4,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.parmesean._id,
     quantity: 1,
     portions: 12,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.spinach._id,
     quantity: 1,
     portions: 8,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.peppers._id,
     quantity: 1,
     portions: 4,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.tomatoes._id,
     quantity: 4,
     portions: 1,
     expiry: day('2023-10-1').format("MMM D, YYYY")
   },
   {
+    user: user._id,
     ingredient: ingredients.bannanas._id,
     expiry: day('2023-10-1').format("MMM D, YYYY"),
     portions: 3,

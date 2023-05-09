@@ -57,7 +57,7 @@ body {
   &::before {
     content: "";
     position: absolute;
-    background: url(/rice.svg);
+    background: url('../assets/icons/react.svg');
     background-size: contain;
     background-repeat: no-repeat;
     height: 30px;

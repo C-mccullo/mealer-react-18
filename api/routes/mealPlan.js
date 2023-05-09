@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const userController = require('../controllers/userController');
-const mealPlanController = require('../controllers/mealPlanController');
+const userController = require('../controllers/userController.js');
+const mealPlanController = require('../controllers/mealPlanController.js');
 
 // MEAL PLAN
 router.get("/mealplan",

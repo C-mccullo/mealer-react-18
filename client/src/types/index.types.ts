@@ -10,7 +10,9 @@ export interface FoodItem {
 
 export interface User {
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  password?: string;
 }
 
 export interface Ingredient {
@@ -27,7 +29,7 @@ export interface RecipeIngredient {
 
 export interface Recipe {
   ingredients: RecipeIngredient[];
-  user: User;
+  user?: User;
   name: string;
 }
 
@@ -43,19 +45,35 @@ export interface MealPlan {
 
 export interface MealerState {
   // ingredientList: [],
-  inventory: FoodItem[];
-  recipes: Recipe[];
-  weekMealPlan: MealPlan;
+  inventory?: FoodItem[];
+  recipes?: Recipe[];
+  mealPlan?: MealPlan;
   currentUser?: User;
   isLoggedIn: boolean;
-  isModalOpen: boolean;
+  isModalOpen: boolean; // wtf?
 }
 
+// THIS WILL PROBABLY NEED TO BE REFACTORED LATER
 export enum MEALER_ACTION_TYPE {
+  // FOOD ITEMS
+  GET_FOOD_ITEMS = 'GET_FOOD_ITEMS',
   ADD_FOOD_ITEM = 'ADD_FOOD_ITEM',
   DELETE_FOOD_ITEM = 'DELETE_FOOD_ITEM',
+  // INVENTORY
+  GET_INVENTORY = 'GET_INVENTORY',
+  ADD_INVENTORY = 'ADD_INVENTORY',
+  DELETE_INVENTORY = 'DELETE_INVENTORY',
+  // MEAL PLANS
+  GET_MEAL_PLANS = 'GET_MEAL_PLANS',
   ADD_MEAL_PLAN = 'ADD_MEAL_PLAN',
-  DELETE_MEAL_PLAN = 'DELETE_MEAL_PLAN'
+  DELETE_MEAL_PLAN = 'DELETE_MEAL_PLAN',
+  // RECIPES
+  GET_RECIPES = 'GET_RECIPES',
+  ADD_RECIPE = 'ADD_RECIPE',
+  DELETE_RECIPE = 'DELETE_RECIPE',
+  // USER
+  GET_USER = 'GET_USER',
+  LOGOUT_USER = 'LOGOUT_USER'
 }
 
 export type MealerReducerAction = {

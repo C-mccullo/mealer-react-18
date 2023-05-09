@@ -1,15 +1,15 @@
 
-import { Router } from 'express';
-import IngredientController from "../controllers/ingredientController";
-import userController from '../controllers/userController';
+const Router = require('express');
+const IngredientController = require("../controllers/ingredientController.js");
+const userController = require('../controllers/userController.js');
 
 const router = Router();
 
-router.get("/ingredientList", IngredientController.getIngredients);
+router.get("/ingredients", IngredientController.getIngredients);
 
-router.get("/ingredientList/search", IngredientController.searchIngredients);
+router.get("/ingredients/search", IngredientController.searchIngredients);
 
-router.post("/ingredientList",
+router.post("/ingredients",
   userController.isAuthorized,
   IngredientController.postIngredient
 );

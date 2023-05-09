@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { AsyncTypeahead } from "react-bootstrap-typeahead";
-import DatePicker from "react-datepicker";
-import moment from "moment";
-
+// import { AsyncTypeahead } from "react-bootstrap-typeahead";
+// import DatePicker from "react-datepicker";
+import { dayJs as day } from 'dayjs';
 class AddFoodForm extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +10,7 @@ class AddFoodForm extends Component {
         name: "",
         quantity: "",
         portions:  "",
-        pickerExpiry: moment(),
+        pickerExpiry: day(),
         expiry: null,
         isLoading: false,
         options: []
@@ -39,8 +38,8 @@ class AddFoodForm extends Component {
     this.setState({ isLoading: true });
     fetch(`/api/search/ingredientList?ingredient=${query}`)
       .then(res => res.json())
-      .then(json => { 
-        this.setState({ options: json, isLoading: false }); 
+      .then(json => {
+        this.setState({ options: json, isLoading: false });
         console.log(this.state.options);
       })
   }
@@ -58,8 +57,7 @@ class AddFoodForm extends Component {
   }
 
   handleExpiry(date) {
-    // const formattedDate = moment(date).unix();
-    const formattedDate = moment(date).format("MMM Do, YY");
+    const formattedDate = day(date).format("MMM DD, YYYY");
     this.setState({
       expiry: formattedDate,
       pickerExpiry: date
@@ -69,17 +67,18 @@ class AddFoodForm extends Component {
   resetForm() {
     this.setState(this.baseState)
   }
-  // if name is not present in the options, than need to make different request to add ingredient
+  // if name is not present in the options, than need to make a request to add ingredient before save
   postNewIngredient() {
     console.log("will post new ingredient");
   }
 
   postFoodItem() {
     const foodItem = Object.assign({}, this.state);
+    // umm why?
     delete foodItem.pickerExpiry;
     delete foodItem.options;
     delete foodItem.isLoading;
-    console.log(foodItem);
+
     fetch("/api/foods", {
       method: "POST",
       credentials: "include",
@@ -99,21 +98,14 @@ class AddFoodForm extends Component {
   }
 
   render() {
+    // use react hook form
     return (
       <form className="form" onSubmit={this.handleSubmit}>
         <Link role="button" to="/inventory" className="form-close" >X</Link>
         <div className="form-row">
           <h2>Add food to your inventory</h2>
           <label className="form-label" htmlFor="ingredient">Ingredient</label>
-          <AsyncTypeahead className="form-input" labelKey={ option => `${option.name}` }
-            inputProps={{name: "ingredient" , required: true}} 
-            placeholder="Enter Ingredient Name"
-            options={ this.state.options } 
-            bsSize="lg"
-            isLoading={ this.state.isLoading } 
-            onSearch={ (query) => this.searchIngredients(query) }
-            onInputChange={ (e) => this.addToNameState(e) }
-          />
+          {/* ADD an async typeahead here */}
           <label className="form-label" htmlFor="quantity">Quantity</label>
           <input className="form-input" onChange={this.handleChange} name="quantity" required type="number" min="1" placeholder="Enter the quantity" value={this.state.quantity} />
           <label className="form-label" htmlFor="portions">Portions Per Item</label>
@@ -121,11 +113,7 @@ class AddFoodForm extends Component {
         </div>
         <div className="form-row">
           <label className="form-label" htmlFor="expiry">Expiry Date (optional)</label>
-          <DatePicker className="form-input" name="expiry" 
-            onChange={ (value) => this.handleExpiry(value)} 
-            value={this.state.expiry}
-            placeholderText="add an expiry date"
-          />
+          {/* ADD a datepicker here */}
         </div>
         <div className="form-row">
           <button className="button-blue">Add Food Item</button>

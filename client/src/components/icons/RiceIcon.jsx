@@ -1,7 +1,6 @@
 import React from "react";
 
-
-export const MealerIcon = (props) => {
+const RiceIcon = (props) => {
 	return (
 		<svg className={props.className}
 			version="1.1"
@@ -92,4 +91,6 @@ export const MealerIcon = (props) => {
 		</svg>
 	)
 }
+
+export default RiceIcon
 

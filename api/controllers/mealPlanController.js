@@ -1,37 +1,35 @@
-import mongoose from "mongoose";
-import { flatten } from 'lodash';
+const mongoose = require('mongoose');
+const { flatten } = require('lodash');
 
-import MealPlan from "../models/MealPlanModel";
-import Recipe from "../models/RecipesModel";
-import FoodItem from "../models/FoodItemModel";
+const MealPlan = require('../models/MealPlanModel');
+const Recipe = require('../models/RecipesModel');
+const FoodItem = require('../models/FoodItemModel');
 
-export default class MealPlanController {
-
-  newUserMealPlan = (req, res, next) => {
-    console.log("new User MealPlan: ", req.user);
-    const userID = new mongoose.Types.ObjectId(req.user._id);
-    const mealPlanModel = new MealPlan();
-    const mealPlan = Object.assign(mealPlanModel, {
-      user: userID,
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-      saturday: [],
-      sunday: []
+exports.newUserMealPlan = (req, res, next) => {
+  console.log("new User MealPlan: ", req.user);
+  const userID = new mongoose.Types.ObjectId(req.user._id);
+  const mealPlanModel = new MealPlan();
+  const mealPlan = Object.assign(mealPlanModel, {
+    user: userID,
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: [],
+    sunday: []
+  })
+  mealPlan.save()
+    .then(()=> {
+      next();
     })
-    mealPlan.save()
-      .then(()=> {
-        next();
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(err);
-      });
-  }
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+}
 
-  getMealPlan = (req, res) => {
+  exports.getMealPlan = (req, res) => {
     const userID = req.user._id;
     // console.log("meal Controller; ", userID);
     // excluding _id, __v and user from the response object
@@ -49,10 +47,10 @@ export default class MealPlanController {
   }
 
   // will need to remove recipes from meal plan and restore foodItems quantities
-  restoreUnusedFoodItems = (req, res, next) => {
+  exports.restoreUnusedFoodItems = (req, res, next) => {
     const day = req.params.day;
     const userID = req.user._id;
-    let mealPlanRecipes;
+
     MealPlan.findOne({ user: userID })
       .then((doc)=> {
         const recipes = doc[day]
@@ -64,15 +62,15 @@ export default class MealPlanController {
             $in: recipeIds
           }
         })
-        .then((docs: any) => {
-          const ingredients = flatten(docs.map((doc: any) => {
-            return doc.ingredients.map((i: any) => {
+        .then((docs) => {
+          const ingredients = flatten(docs.map((doc) => {
+            return doc.ingredients.map((i) => {
               const ingredient = { id: i.ingredient, portionSize: i.portionSize };
               return ingredient;
             })
           }))
           console.log("restore foodItems: ", ingredients);
-          function restoreItem(i: any) {
+          function restoreItem(i) {
             return new Promise((resolve, reject) => {
               FoodItem.findOneAndUpdate({
                 ingredient: i.id,
@@ -85,7 +83,7 @@ export default class MealPlanController {
               }, {
                   new: true
                 })
-                .then((doc: any) => {
+                .then((doc) => {
                   if (!doc) {
                     return
                   } else if (doc.quantity === 0) {
@@ -95,7 +93,7 @@ export default class MealPlanController {
                 })
                 .then(() => resolve("updated item :)"))
                 // TODO: if restoration quantity results to be zero, then remove the fooditem
-                .catch((err: any) => {
+                .catch((err) => {
                   console.log(err);
                   reject("issue with updating item :(")
                 })
@@ -108,9 +106,10 @@ export default class MealPlanController {
           })
           // wait until all the food items used in the recipes have been updated
           Promise.all(updateAll)
-            .then(() => console.log("foodItems have been restored!"))
-            // trigger next to then move on and update the "meal plan" document
-            .then(() => next())
+            .then(() => {
+              console.log("foodItems have been restored!")
+              next()
+            })
         })
       })
         .catch(err=> {
@@ -119,7 +118,7 @@ export default class MealPlanController {
         })
   }
 
-  updateMealPlan = (req, res, next) => {
+  exports.updateMealPlan = (req, res, next) => {
     const day = req.params.day;
     const meals = req.body;
     const userID = req.user._id;
@@ -144,7 +143,7 @@ export default class MealPlanController {
   }
 
   // 👇 This controller should probably be called before the save of the mealPlan document
-  updateFoodItems = (req, res, next) => {
+  exports.updateFoodItems = (req, res, next) => {
     const userID = new mongoose.Types.ObjectId(req.user._id);
     const day = req.params.day;
     const recipes = req.body;
@@ -200,7 +199,6 @@ export default class MealPlanController {
         .then(()=> next())
     })
   }
-}
 
 
 

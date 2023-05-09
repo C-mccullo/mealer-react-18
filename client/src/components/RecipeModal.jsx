@@ -1,5 +1,5 @@
 import React from "react";
-import InventoryList from "./InventoryList";
+// import InventoryList from "./InventoryList";
 import RecipeIncrementer from "./RecipeIncrementer";
 
 const RecipeModal = (props) => {
@@ -28,7 +28,7 @@ const RecipeModal = (props) => {
                 {
                   props.ingredientList.map((item) => {
                     return (
-                      <RecipeIncrementer key={`recipe-${item._id}`} 
+                      <RecipeIncrementer key={`recipe-${item._id}`}
                         recipeIngredients={ props.recipeIngredients }
                         item={item}
                         removeIngredient={ props.removeIngredient }

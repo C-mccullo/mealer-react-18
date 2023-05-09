@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import RecipeModal from "./RecipeModal";
-import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { Link } from "react-router-dom";
 
 class AddRecipeFormTypeAhead extends Component {
@@ -150,7 +148,7 @@ class AddRecipeFormTypeAhead extends Component {
         return (
           <div className="ingredient" key={`ingredient-${item._id}`}>
             <label htmlFor={`ingredient-${item._id}`}
-              onClick={() => toggleIngredient(item)}
+              onClick={() => this.toggleIngredient(item)}
               className="">
               {item.name}
             </label>
@@ -216,7 +214,10 @@ class AddRecipeFormTypeAhead extends Component {
           <input className="form-input" onChange={this.handleChange} name="name" required type="text" placeholder="Enter Recipe Name" value={this.state.name} />
 
           <label className="form-label" htmlFor="ingredient">Add Ingredients</label>
-          <AsyncTypeahead className="form-input" labelKey={option => `${option.name}`}
+          {/* add a typeahead here */}
+          {/* <AsyncTypeahead
+            className="form-input"
+            labelKey={option => `${option.name}`}
             inputProps={{ name: "ingredient" }}
             placeholder="Enter an ingredients name"
             ref="asyncTypeAhead"
@@ -225,7 +226,7 @@ class AddRecipeFormTypeAhead extends Component {
             isLoading={this.state.isLoading}
             onSearch={(query) => this.searchIngredients(query)}
             onChange={(e) => this.addIngredientToState(e)}
-          />
+          /> */}
 
           <ul className="recipe-Ingredients">
             {this.state.ingredients ? this.mapIngredients().reverse() : null}

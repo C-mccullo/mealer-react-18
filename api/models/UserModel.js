@@ -11,9 +11,14 @@ const UserSchema = new mongoose.Schema({
     validate: [validator.isEmail, 'Sorry, invalid email address'],
     required: 'please add an email address'
   },
-  name: {
+  firstName: {
     type: String,
-    required: 'Please add a name for login',
+    required: 'Please add a first name for login',
+    trim: true
+  },
+  lastName: {
+    type: String,
+    required: 'Please add a last name for login',
     trim: true
   }
 });

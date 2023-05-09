@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import FoodItem from '../models/FoodItemModel';
-import Ingredient from '../models/IngredientModel';
+const mongoose = require('mongoose');
+const FoodItem = require('../models/FoodItemModel');
+const Ingredient = require('../models/IngredientModel');
 
 
 exports.getFoods = (req, res) => {

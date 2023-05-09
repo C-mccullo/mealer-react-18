@@ -18,7 +18,7 @@ const mealPlans = [
   }
 ]
 
-// Drop any existing data inside of the movies table
+// Drop any existing data inside of the meal plan table
 MealPlan.remove({}, () => {
   console.log('All foods removed');
 });

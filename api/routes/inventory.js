@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import * as foodItemController from '../controllers/foodItemController';
-import * as userController from '../controllers/userController';
+const Router = require('express');
+const foodItemController = require('../controllers/foodItemController.js');
+const userController = require('../controllers/userController.js');
 const router = Router();
 // INVENTORY
 router.get('/foods',

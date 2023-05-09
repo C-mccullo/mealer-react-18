@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction, isRejectedWithValue } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../types/index.types';
 
 interface LoggedInState {

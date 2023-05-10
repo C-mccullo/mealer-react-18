@@ -18,6 +18,7 @@ const userValidatorSchema = [
     .normalizeEmail({
       remove_dots: false,
       remove_extension: false,
+      gmail_remove_dots: false,
       gmail_remove_subaddress: false
     }),
   body("password")
@@ -66,7 +67,8 @@ exports.registerUser = (req, res, next) => {
   })
 }
 
-exports.sendUser = (req, res) => {
+exports.sendUser = (req, res, next) => {
+  console.log('user? ', req.user);
   res.send(req.user);
 }
 

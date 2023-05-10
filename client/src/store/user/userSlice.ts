@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../types/index.types';
-
-interface LoggedInState {
+import axios, { AxiosResponse } from 'axios';
+interface LogInState {
   user: User,
   isLoggedIn: boolean
 }
 
-const initialState: LoggedInState = {
+const initialState: LogInState = {
   user: {
     email: undefined,
     firstName: undefined,
@@ -19,35 +19,34 @@ export const postNewUserThunk = createAsyncThunk(
   'user/postNewUser',
   async (userData: User,  { rejectWithValue }) => {
     try {
-      const data = await fetch("/api/v1/signup", {
+      const res: AxiosResponse = await axios("/api/v1/signup", {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(userData)
-        }).then(res => res.json());
-      return data
+          data: JSON.stringify(userData)
+        });
+      return res.data;
     } catch(err) {
-      return rejectWithValue(err)
+      return rejectWithValue(err.errors)
     }
 })
 
 export const signInUserThunk = createAsyncThunk(
   'user/signInUser',
-  async (userData: User, { rejectWithValue }) => {
+  async (userData: any, { rejectWithValue }) => {
     try {
-      const data = await fetch("/api/v1/login", {
+      const res: AxiosResponse = await axios("/api/v1/login", {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(userData)
-        }).then(res => res.json());
-      return data
+          data: JSON.stringify(userData)
+        });
+      return res.data;
     } catch(err) {
-      return rejectWithValue(err)
+      console.log(err);
+      return rejectWithValue(err.errors)
     }
 })
 
@@ -76,23 +75,26 @@ const userSlice = createSlice({
       };
     }),
     builder.addCase(postNewUserThunk.pending, (state) => {
-      state.isLoggedIn = false;
+      // state.isLoggedIn = false;
     }),
-    builder.addCase(postNewUserThunk.rejected, (state) => {
+    builder.addCase(postNewUserThunk.rejected, (state, action) => {
       // TODO: add api error to app error alert?
+      console.log(action)
       state.user = initialState.user;
     }),
-    // GET USER
-    builder.addCase(signInUserThunk.fulfilled, (state, action: PayloadAction<any>) => {
+
+    // LOGIN USER
+    builder.addCase(signInUserThunk.fulfilled, (state, action) => {
       const { firstName, lastName, email } = action.payload
       state.user = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email
-      }
+        firstName,
+        lastName,
+        email
+      },
+      state.isLoggedIn = true
     }),
     builder.addCase(signInUserThunk.pending, (state) => {
-      state.isLoggedIn = false;
+      // state.isLoggedIn = false;
     }),
     builder.addCase(signInUserThunk.rejected, (state) => {
       // add api error to app error alert?

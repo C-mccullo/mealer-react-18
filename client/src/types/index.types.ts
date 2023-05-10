@@ -1,5 +1,7 @@
 // import { Types } from 'mongoose';
 
+// export interface MongoDB response
+
 export interface FoodItem {
   user?: User;
   ingredient: string;

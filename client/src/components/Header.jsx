@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import BaseLink from './base/Link';
 import BurgerMenuIcon from './icons/BurgerMenuIcon';
-import RiceIcon from './icons/RiceIcon';
 
 const Header = () => {
   const [isHamburgerOpen, setHamburgerOpen ] = useState(false);

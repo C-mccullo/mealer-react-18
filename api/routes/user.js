@@ -25,10 +25,12 @@ router.post('/signup',
 );
 
 router.post('/login',
-  passport.authenticate("local"),
+  passport.authenticate('local', { failWithError: true }),
   userController.sendUser
 );
 
-router.get('/logout', userController.logoutUser);
+router.get('/logout',
+  userController.logoutUser
+);
 
 module.exports = router;

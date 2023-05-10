@@ -7,7 +7,7 @@ interface GuardedRouteProps {
 
 const GuardedRoute = ({
 	canAccess = false,
-	redirect = '/',
+	redirect = '/login',
 }: GuardedRouteProps): JSX.Element => (
 	canAccess ? <Outlet /> : <Navigate to={redirect} replace />
 )

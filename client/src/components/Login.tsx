@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { isEmpty } from 'lodash';
 import { useAppDispatch } from '../store';
 import { signInUserThunk } from '../store/user/userSlice';
+import { Link } from "react-router-dom";
 
 // interface for signInForm
 interface LoginForm {
@@ -31,38 +32,41 @@ const LoginModal = () => {
 
   return (
     <div className="login">
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-row">
-          <h1>Log In</h1>
-          <label
-            className="form-label"
-            htmlFor="email">User Email:</label>
-          <input
-            name="email"
-            className="form-input"
-            type="email"
-            {...register('email', {
-              required: true
-            })}
-          />
-          <label
-            className="form-label"
-            htmlFor="password">Password:
-          </label>
-          <input
-            name="password"
-            className="form-input"
-            type="password"
-            {...register('password', {
-              required: true
-            })}
-          />
-          <input
-            className="button button-blue"
-            type="submit"
-            value="Submit" />
-        </div>
-      </form>
+      <div className="form-container">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-row">
+            <h1>Log In</h1>
+            <label
+              className="form-label"
+              htmlFor="email">User Email:</label>
+            <input
+              name="email"
+              className="form-input"
+              type="email"
+              {...register('email', {
+                required: true
+              })}
+            />
+            <label
+              className="form-label"
+              htmlFor="password">Password:
+            </label>
+            <input
+              name="password"
+              className="form-input"
+              type="password"
+              {...register('password', {
+                required: true
+              })}
+            />
+            <input
+              className="button button-blue"
+              type="submit"
+              value="Submit" />
+          </div>
+        </form>
+        <p>Don't have an account? <Link className="" to="/signup">Sign up</Link></p>
+      </div>
     </div>
   )
 }

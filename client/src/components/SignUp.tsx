@@ -4,6 +4,7 @@ import { User } from '../types/index.types';
 import { useAppDispatch } from '../store';
 import { postNewUserThunk } from '../store/user/userSlice';
 import { isEmpty } from 'lodash';
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const initialState: User = {
@@ -31,58 +32,60 @@ const SignUp = () => {
       return;
     }
     // POST_NEW_USER -> POST -> SUCCESS -> LOGIN USER
-    dispatch(postNewUserThunk(formData));
+    await dispatch(postNewUserThunk(formData));
   }
 
   return (
     <div>
       <div className="login">
-        <form
-          className="form"
-          onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-row">
-            <h1>Sign Up</h1>
-            <label htmlFor="firstName">First Name:</label>
-            <input
-              name="firstName"
-              className="form-input"
-              type="text"
-              {...register('firstName', { required: true })}
-            />
-            <label htmlFor="lastName">Last Name:</label>
-            <input
-              name="lastName"
-              className="form-input"
-              type="text"
-              {...register('lastName', {
-                required: true,
-                pattern: /^[A-Za-z]+$/i
-              })}
-            />
-            <label htmlFor="email">Email:</label>
-            <input
-              name="email"
-              className="form-input"
-              type="email"
-              {...register('email', {
-                required: true,
-                pattern: emailValidation
-              })}
-            />
-            <label
-              htmlFor="password">Password:</label>
-            <input
-              name="password"
-              className="form-input"
-              type="text"
-              {...register('password', { required: true })}
-            />
-            <input
-              className="button button-green"
-              type="submit"
-              value="Submit" />
-          </div>
-        </form>
+        <div className="form-container">
+          <form
+            onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-row">
+              <h1>Sign Up</h1>
+              <label htmlFor="firstName">First Name:</label>
+              <input
+                name="firstName"
+                className="form-input"
+                type="text"
+                {...register('firstName', { required: true })}
+              />
+              <label htmlFor="lastName">Last Name:</label>
+              <input
+                name="lastName"
+                className="form-input"
+                type="text"
+                {...register('lastName', {
+                  required: true,
+                  pattern: /^[A-Za-z]+$/i
+                })}
+              />
+              <label htmlFor="email">Email:</label>
+              <input
+                name="email"
+                className="form-input"
+                type="email"
+                {...register('email', {
+                  required: true,
+                  pattern: emailValidation
+                })}
+              />
+              <label
+                htmlFor="password">Password:</label>
+              <input
+                name="password"
+                className="form-input"
+                type="text"
+                {...register('password', { required: true })}
+              />
+              <input
+                className="button button-green"
+                type="submit"
+                value="Submit" />
+            </div>
+            <p>Already a user? <Link to="/login">Log in</Link></p>
+          </form>
+        </div>
       </div>
     </div>
   )

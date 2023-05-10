@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import { AsyncTypeahead } from "react-bootstrap-typeahead";
 // import DatePicker from "react-datepicker";
 import { dayJs as day } from 'dayjs';
+import axios from 'axios';
 class AddFoodForm extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class AddFoodForm extends Component {
 
   searchIngredients(query) {
     this.setState({ isLoading: true });
-    fetch(`/api/search/ingredientList?ingredient=${query}`)
+    axios(`/api/search/ingredientList?ingredient=${query}`)
       .then(res => res.json())
       .then(json => {
         this.setState({ options: json, isLoading: false });
@@ -79,13 +80,12 @@ class AddFoodForm extends Component {
     delete foodItem.options;
     delete foodItem.isLoading;
 
-    fetch("/api/foods", {
+    axios("/api/foods", {
       method: "POST",
-      credentials: "include",
-      body: JSON.stringify(foodItem),
       headers: {
         "Content-type": "application/json",
-      }
+      },
+      data: JSON.stringify(foodItem),
     })
       .then(() => this.props.fetchIngredients())
       .then(() => this.props.fetchFoods())

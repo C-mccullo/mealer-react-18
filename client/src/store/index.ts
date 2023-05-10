@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import ingredientReducer from './ingredients/IngredientSlice';
 import userReducer from './user/userSlice';
+import recipeReducer from './recipes/recipeSlice';
 // add in other stores as they are built
 
 export const store = configureStore({
   reducer: {
     ingredients: ingredientReducer,
-    user: userReducer
+    user: userReducer,
+    recipes: recipeReducer
   }
 })
 

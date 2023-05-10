@@ -1,5 +1,5 @@
 // FORM
-a.addFormLink {
+.addFormLink {
   position: relative;
   color: $secondary;
   font-family: 'Lobster', cursive;
@@ -22,13 +22,13 @@ a.addFormLink {
   }
 }
 
-form.form h1,
-form.form h2 {
+.form-container h1,
+.form-container h2 {
   margin-top: 0px;
   text-align: center;
 }
 
-form.form {
+.form-container {
   max-width: 375px;
   background-color: $light-background;
   margin: 20px auto;

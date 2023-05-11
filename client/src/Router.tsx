@@ -9,16 +9,16 @@ import { getUserRecipesThunk } from './store/recipes/recipeSlice.ts'
 import { isEmpty } from 'lodash';
 
 import App from './App.tsx';
-import HomePage from './pages/HomePage.jsx'
-import LoginPage from './pages/LoginPage.jsx';
-import InventoryPage from './pages/InventoryPage.js';
-import SignUpPage from './pages/SignUpPage.jsx';
-import AddIngredientFormPage from './pages/AddIngredientFormPage.jsx';
-import AddRecipeFormPage from './pages/AddRecipeFormPage.jsx';
-import AddRecipePage from './pages/AddRecipePage.jsx';
-import MealPlanPage from './pages/MealPlanPage.jsx';
-import ErrorPage from './pages/ErrorPage.jsx';
-import GuardedOutlet from './pages/GuardedOutlet.tsx';
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage';
+import InventoryPage from './pages/InventoryPage';
+import SignUpPage from './pages/SignUpPage';
+import AddIngredientFormPage from './pages/AddIngredientFormPage';
+import AddRecipeFormPage from './pages/AddRecipeFormPage';
+import AddRecipePage from './pages/AddRecipePage';
+import MealPlanPage from './pages/MealPlanPage';
+import ErrorPage from './pages/ErrorPage';
+import GuardedOutlet from './pages/GuardedOutlet';
 
 const AppRouter = (): JSX.Element => {
   const isAuth = useAppSelector<boolean>(state => {
@@ -26,18 +26,23 @@ const AppRouter = (): JSX.Element => {
 		const loggedIn = state.user.isLoggedIn;
 		return !isEmpty(user) && loggedIn
 	})
-  // *NOTE: Had problems with the guarded route navigating logic using createBrowserRouter
+  /*
+    *NOTE: Had problems with the guarded route navigating logic using createBrowserRouter
+    https://github.com/remix-run/react-router/discussions/9856
+  */
   // const router = createBrowserRouter(
   //   createRoutesFromElements(
   //   )
   // )
   // return <RouterProvider router={ router } />
+  // TODO: maybe find way to use Route loader to make dispatch call to get data related to route?
   return (
     <BrowserRouter>
       <Routes>
         <Route
           element={<App/>}
           errorElement={<ErrorPage />}>
+          {/* Homepage guarded */}
           <Route
             path="/"
             element={
@@ -49,8 +54,8 @@ const AppRouter = (): JSX.Element => {
           >
             <Route
               path="/home"
-              element={<HomePage/>}>
-            </Route>
+              element={<HomePage/>}
+            />
           </Route>
           <Route
             path="/login"
@@ -61,7 +66,6 @@ const AppRouter = (): JSX.Element => {
             path={"/signup"}
             element={<SignUpPage/>}
           />
-
           <Route
             element={
               <GuardedOutlet
@@ -70,22 +74,17 @@ const AppRouter = (): JSX.Element => {
               />
             }
           >
-            {/* TODO: dispatch a fetch user inventory in loader prop? */}
             <Route
               path={"/inventory"}
               element={<InventoryPage/>}
             />
             <Route
-              path={"/inventory/add-food"}
-              element={<AddIngredientFormPage/>}
+              path={"/recipes"}
+              element={<AddRecipePage/>}
             />
             <Route
               path={"/recipes/addrecipe"}
               element={<AddRecipeFormPage/>}
-            />
-            <Route
-              path={"/recipes"}
-              element={<AddRecipePage/>}
             />
             <Route
               path={"/mealplanner"}

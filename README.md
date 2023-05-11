@@ -17,3 +17,4 @@ express, mongodb, react 18, redux-toolkit, typescript, react router v6, (tailwin
 - [x] set up react router with store
 - [x] set up mongodb with data from script
 - [x] set up redirect to home route when user is logged in and can access data
+- [] make form input components and ensure a11y

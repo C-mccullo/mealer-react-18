@@ -26,24 +26,24 @@ const ingredientSlice = createSlice({
   initialState,
   reducers: {
     // ADD_RECIPE
-    addIngredient: (state, action: PayloadAction) => {
+    addIngredient: (state, action) => {
       return state
     },
     // DELETE_RECIPE
-    deleteIngredient: (state, action: PayloadAction) => {
+    deleteIngredient: (state, action) => {
       return state
     }
   },
   extraReducers: (builder) => {
     builder.addCase(getIngredientsThunk.pending, (state) => {
-      state
+      return state
     }),
-    builder.addCase(getIngredientsThunk.fulfilled, (state, action: PayloadAction<any>) => {
-      state = action.payload
+    builder.addCase(getIngredientsThunk.fulfilled, (state, action: PayloadAction<Ingredient[]>) => {
+      return action.payload
     }),
     builder.addCase(getIngredientsThunk.rejected, (state) => {
       // add error message to global error state obj
-      state = []
+      return []
     })
   }
 });

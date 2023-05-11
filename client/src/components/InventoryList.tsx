@@ -1,11 +1,10 @@
 import InventoryItem from "./InventoryItem";
 
-// TODO: create a factory component to dynamically list children
-const InventoryList = ({ inventory, ...props }) => {
+const InventoryList = ({ inventory }) => {
   return (
     <div className="inventoryList">
       { inventory.map((item) => {
-          return (<InventoryItem {...props} key={item._id} item={item}/>)
+          return <InventoryItem key={item._id} item={item}/>
         })
       }
     </div>

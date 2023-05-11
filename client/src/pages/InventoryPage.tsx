@@ -11,8 +11,9 @@ const InventoryPage = ({ ...props }) => {
   const inventory = useAppSelector<InventoryItem[]>(state => state.inventory)
 
   useEffect(() => {
-    dispatch(getUserInventoryThunk)
-  })
+    console.log('dispatch the inventory call')
+    dispatch(getUserInventoryThunk())
+  }, [dispatch])
 
   return (
     <div>

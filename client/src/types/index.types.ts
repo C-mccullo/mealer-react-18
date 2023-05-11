@@ -77,8 +77,3 @@ export enum MEALER_ACTION_TYPE {
   GET_USER = 'GET_USER',
   LOGOUT_USER = 'LOGOUT_USER'
 }
-
-export type MealerReducerAction = {
-  type: MEALER_ACTION_TYPE;
-  payload: any;
-}

@@ -1,10 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from 'react';
+import { Provider } from 'react-redux';
+import { createRoot } from 'react-dom/client';
+import AppRouter from './Router';
+import { store } from './store';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+// import './index.css';
+
+// TODO: move this hook inside App function with the rest of the router and store setup
+
+createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Provider store={ store }>
+      <AppRouter/>
+    </Provider>
   </React.StrictMode>,
 )

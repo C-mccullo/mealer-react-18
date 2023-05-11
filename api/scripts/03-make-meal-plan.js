@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/./../../.env' });
 const mongoose = require('mongoose');
 const MealPlan = require('../models/MealPlanModel');
 
@@ -18,7 +18,7 @@ const mealPlans = [
   }
 ]
 
-// Drop any existing data inside of the movies table
+// Drop any existing data inside of the meal plan table
 MealPlan.remove({}, () => {
   console.log('All foods removed');
 });

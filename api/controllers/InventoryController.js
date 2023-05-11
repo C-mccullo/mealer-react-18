@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
-import FoodItem from '../models/FoodItemModel';
-import Ingredient from '../models/IngredientModel';
+const mongoose = require('mongoose');
+const InventoryItem = require('../models/InventoryItemModel');
+const Ingredient = require('../models/IngredientModel');
 
 
 exports.getFoods = (req, res) => {
   const userID = req.user._id;
   // If no FoodItems for current user, send 204 status
-  FoodItem
+  InventoryItem
     .find({ user: userID })
     .populate('ingredient')
     .then((docs) => {
@@ -21,7 +21,7 @@ exports.postFoods = (req, res) => {
   // post foodItem once checkIngredientExists middleware determines if Ingredient exists
   console.log("postfoods", req.body);
   const userID = new mongoose.Types.ObjectId(req.user._id);
-  const foodItem = new FoodItem({
+  const foodItem = new InventoryItem({
     expiry: req.body.expiry,
     quantity: req.body.quantity,
     portions: req.body.portions,
@@ -66,7 +66,7 @@ exports.checkByExpiry = ( req, res ) => {
   const ingredientID = req.body.ingredientID;
   let expiry = req.body.expiry;
   if (typeof(expiry) === "string" && expiry.length === 0) { expiry = null; }
-  FoodItem.findOneAndUpdate({
+  InventoryItem.findOneAndUpdate({
     ingredient: ingredientID,
     user: userID,
     expiry: expiry
@@ -94,7 +94,7 @@ exports.checkByExpiry = ( req, res ) => {
 
 exports.deleteFood = (req, res) => {
   const foodItemId = req.params.id;
-  FoodItem.remove({ _id: foodItemId }).then((doc) => {
+  InventoryItem.remove({ _id: foodItemId }).then((doc) => {
     res.status(200).send(doc);
   })
     .catch((err) => {

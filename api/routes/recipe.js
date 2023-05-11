@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const userController = require('../controllers/userController');
-const recipeController = require('../controllers/recipeController');
+const userController = require('../controllers/userController.js');
+const recipeController = require('../controllers/recipeController.js');
 
 // RECIPES
 router.get("/recipes",

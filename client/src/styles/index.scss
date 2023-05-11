@@ -1,0 +1,259 @@
+@import './partials/normalize';
+@import './partials/colors';
+@import './partials/typography';
+@import './partials/mixins';
+@import './partials/typeahead.scss';
+@import './partials/header';
+@import './partials/inventory';
+@import './partials/form';
+@import './partials/modal';
+@import './partials/mealPlan';
+@import 'datepicker';
+
+main#app {
+  overflow: hidden;
+}
+
+body {
+  background-color: $background;
+  color: $dark;
+}
+
+// BUTTONS
+
+.button-green {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: $primary;
+  border-radius: 0px;
+  border: 1px solid $dark;
+  cursor: pointer;
+}
+
+.button-blue {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: $tertiary-light;
+  border-radius: 0px;
+  border: 1px solid $dark;
+  cursor: pointer;
+}
+
+.button-red {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: $secondary-light;
+  border-radius: 0px;
+  border: 1px solid $dark;
+  cursor: pointer;
+}
+
+.app-logo {
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 5px 5px 5px 40px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    background: url('../assets/icons/react.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    left: 5px;
+    top: 2px;
+  }
+}
+
+.app-logo_pizza {
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 5px 5px 5px 40px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    background: url(/pizza.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 32px;
+    width: 32px;
+    left: 7px;
+    top: 0px;
+    transform: rotate(-255deg);
+  }
+}
+
+.main {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+body.modalOpen {
+  position:relative;
+  overflow: hidden;
+}
+
+.mainContainer {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.footer {
+  h3 {
+    font-family: 'Lobster', cursive;
+    letter-spacing: 2px;
+    font-weight: 100;
+  }
+  padding: 20px;
+  margin-top: 60px;
+}
+
+span.deleteItem {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  color: $secondary;
+}
+
+.ingredientList {
+  list-style-type: none;
+  margin: 15px 0px 0px 0px;
+  padding: 0px;
+}
+
+.ingredient {
+  background-color: inherit;
+  padding: 5px 5px;
+  border-bottom: 1px solid $med-background;
+}
+
+.ingredient-selected {
+  background-color: $tertiary-light;
+}
+
+// RECIPE LIST
+.recipeList {
+  @extend .inventoryList;
+}
+
+.recipe {
+  @extend .inventoryItem;
+  padding-bottom: 20px;
+  h3 {
+    text-transform: capitalize;
+  }
+  ul {
+    padding-left: 10px;
+  }
+}
+
+.recipeItem-header {
+  margin-top: 5px;
+  padding: 10px;
+  background-color: $med-background;
+  h3 {
+    margin: 5px 0px 0px 0px;
+  }
+}
+
+.recipeIngredient {
+  position: relative;
+  z-index: 2;
+  margin-top: 3px;
+  .recipeIngredient-name {
+    z-index: 3;
+    background-color: $light-background;
+    padding: 0px 5px 5px 0px;
+    position: relative;
+  }
+  .recipeIngredient-portion {
+    position: absolute;
+    right: 10px;
+    width: 10px;
+    text-align: center;
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      min-width: 140px;
+      max-width: 300px;
+      right: calc(100% + 5px);
+      height: calc(100% - 4px);
+      border-bottom: 1px dotted $dark;
+    }
+  }
+}
+
+.deleteRecipe {
+  color: $secondary;
+  position: absolute;
+  bottom: 10px;
+  cursor: pointer;
+}
+
+.recipeIncrementer {
+  display: inline-block;
+  text-align: right;
+  padding: 5px 0px;
+}
+
+.recipeIncrementer-button {
+  padding: 0px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-size: 13px;
+  border: none;
+  border-radius: 50%;
+  background-color: $primary;
+  color: $light-background;
+  margin: 5px 10px;
+}
+
+.recipeIncrementer-counter {
+  display: inline-block;
+  padding: 2px 5px;
+  border: 1px solid $med-background;
+  border-radius: 3px;
+}
+
+// HOME VIEW
+.homeContainer {
+  margin: 60px;
+}
+
+.home {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+  min-width: 250px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.homeButtonsContainer {
+  .button:nth-child(odd) {
+    margin-right: 25px;
+  }
+}
+
+svg.homeImage {
+  fill: #bfbdbc;
+  max-height: 250px;
+  max-width: 250px;
+  display: block;
+  position: absolute;
+  right: 35%;
+  z-index: -2;
+  top: -5px;
+  transform: translateX(50%);
+}
+
+

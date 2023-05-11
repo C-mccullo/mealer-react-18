@@ -1,8 +1,8 @@
-exports.errorHandler = (err, req, res, next) => {
+function errorHandler(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // send the error
   err.stack = err.stack || '';
   const errorDetails = {
     message: err.message,
@@ -11,11 +11,9 @@ exports.errorHandler = (err, req, res, next) => {
   };
   res.status(err.status || 500);
   res.format({
-    // Based on the `Accept` http header
-    'text/html': () => {
-      res.render('error', errorDetails);
-    }, // Form Submit, Reload the page
-    'application/json': () => res.json(errorDetails) // Ajax call, send JSON back
+    'application/json': () => res.json({ error: errorDetails }) // Ajax call, send JSON back
   });
   res.render('error');
 };
+
+module.exports = errorHandler

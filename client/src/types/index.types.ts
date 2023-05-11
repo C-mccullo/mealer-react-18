@@ -3,11 +3,11 @@
 // export interface MongoDB response
 
 export interface InventoryItem {
-  user?: User;
-  ingredient: string;
-  expiry: string;
+  user?: string;
+  ingredient: Ingredient;
+  expiry: string | null;
   quantity: number;
-  portions: number;
+  portions?: number;
 }
 
 export interface User {
@@ -19,7 +19,7 @@ export interface User {
 
 export interface Ingredient {
   name: string;
-  // TODO: enhance to store nutrient info
+  // TODO: enhance to store nutrient info?
   // caloriesPerUnit?: number;
   // fatPerUnit?: number;
 }

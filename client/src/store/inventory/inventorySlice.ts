@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 const initialState: InventoryItem[] = []
 
 export const getUserInventoryThunk = createAsyncThunk(
-  'ingredients/getIngredients',
+  'inventory/getUserInventory',
   async (_, { rejectWithValue }) => {
     try {
       const res: AxiosResponse = await axios("/api/v1/inventory", {
@@ -24,22 +24,13 @@ export const getUserInventoryThunk = createAsyncThunk(
 const inventorySlice = createSlice({
   name: 'inventory',
   initialState,
-  reducers: {
-    // ADD_RECIPE
-    addInventoryItem: (state, action: PayloadAction) => {
-      return state
-    },
-    // DELETE_RECIPE
-    deleteInventoryItem: (state, action: PayloadAction) => {
-      return state
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getUserInventoryThunk.pending, (state) => {
-      state
+      //
     }),
-    builder.addCase(getUserInventoryThunk.fulfilled, (state, action: PayloadAction<any>) => {
-      state = action.payload
+    builder.addCase(getUserInventoryThunk.fulfilled, (state, action) => {
+      return action.payload
     }),
     builder.addCase(getUserInventoryThunk.rejected, (state) => {
       // add error message to global error state obj
@@ -48,5 +39,5 @@ const inventorySlice = createSlice({
   }
 });
 
-export const { addInventoryItem, deleteInventoryItem } = inventorySlice.actions;
+// export const {} = inventorySlice.actions;
 export default inventorySlice.reducer;

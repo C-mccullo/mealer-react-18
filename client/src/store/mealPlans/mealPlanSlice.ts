@@ -43,7 +43,7 @@ const mealPlanSlice = createSlice({
   extraReducers: builder => {
     // GET_USER_RECIPES
     builder.addCase(getUserMealPlanThunk.fulfilled, (state, action: PayloadAction<MealPlan>) => {
-      state = action.payload
+      return action.payload
     }),
     builder.addCase(getUserMealPlanThunk.pending, (state) => {
       // state.isLoggedIn = false;

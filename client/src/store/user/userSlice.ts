@@ -93,7 +93,7 @@ const userSlice = createSlice({
       state.isLoggedIn = true
     }),
     builder.addCase(signInUserThunk.pending, (state) => {
-      // state.isLoggedIn = false;
+      // add loading state here
     }),
     builder.addCase(signInUserThunk.rejected, (state) => {
       // add api error to app error alert?

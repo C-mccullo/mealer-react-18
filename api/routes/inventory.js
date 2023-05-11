@@ -1,22 +1,22 @@
 const Router = require('express');
-const foodItemController = require('../controllers/foodItemController.js');
+const inventoryController = require('../controllers/InventoryController.js');
 const userController = require('../controllers/userController.js');
 const router = Router();
 // INVENTORY
-router.get('/foods',
+router.get('/inventory',
   userController.isAuthorized,
-  foodItemController.getFoods
+  inventoryController.getFoods
 );
 
-router.post('/foods',
+router.post('/inventory',
   userController.isAuthorized,
-  foodItemController.checkIngredientExist,
-  foodItemController.checkByExpiry
+  inventoryController.checkIngredientExist,
+  inventoryController.checkByExpiry
 );
 
-router.delete('/foods/:id',
+router.delete('/inventory/:id',
   userController.isAuthorized,
-  foodItemController.deleteFood
+  inventoryController.deleteFood
 );
 
 module.exports = router;

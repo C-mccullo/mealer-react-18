@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { isEmpty } from 'lodash';
-import { useAppDispatch } from '../store';
+import { useAppDispatch, useAppSelector } from '../store';
 import { signInUserThunk } from '../store/user/userSlice';
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-// interface for signInForm
-interface LoginForm {
+export interface LoginForm {
   email: string;
   password: string;
 }
@@ -16,17 +17,29 @@ const LoginModal = () => {
     email: undefined,
     password: undefined
   }
-
-  const dispatch = useAppDispatch();
-
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({ defaultValues: initialState });
 
-  const onSubmit = async (formData) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+
+
+  // TODO: set redirecting logic outside of component
+  const isAuth = useAppSelector<boolean>(state => {
+		const user = state.user.user;
+		const loggedIn = state.user.isLoggedIn;
+		return !isEmpty(user) && loggedIn
+	})
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home')
+    }
+  }, [navigate, isAuth])
+
+  const onSubmit = (formData) => {
     if (!isEmpty(errors)) {
-      console.log('errors? ', errors);
       return;
     }
-    console.log(formData);
     dispatch(signInUserThunk(formData))
   }
 

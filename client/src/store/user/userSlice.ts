@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../types/index.types';
+import { LoginForm } from '../../components/Login';
 import axios, { AxiosResponse } from 'axios';
 interface LogInState {
   user: User,
@@ -34,7 +35,7 @@ export const postNewUserThunk = createAsyncThunk(
 
 export const signInUserThunk = createAsyncThunk(
   'user/signInUser',
-  async (userData: any, { rejectWithValue }) => {
+  async (userData: LoginForm, { rejectWithValue }) => {
     try {
       const res: AxiosResponse = await axios("/api/v1/login", {
           method: "POST",
@@ -56,23 +57,21 @@ const userSlice = createSlice({
   reducers: {
     // ADD_RECIPE_TO_USER
 
-    signOutUser: (state, action: PayloadAction<any>) => {
-      state.isLoggedIn = !!action.payload
+    signOutUser: (state) => {
+      state.user = initialState.user;
+      state.isLoggedIn = false;
     },
   },
   extraReducers: builder => {
     // POST NEW USER
     builder.addCase(postNewUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
       const { firstName, lastName, email } = action.payload
-      state = {
-        ...state,
-        user: {
-          firstName: firstName,
-          lastName: lastName,
-          email: email
-        },
-        isLoggedIn: true
-      };
+      state.user = {
+        firstName,
+        lastName,
+        email
+      },
+      state.isLoggedIn = true;
     }),
     builder.addCase(postNewUserThunk.pending, (state) => {
       // state.isLoggedIn = false;
@@ -84,7 +83,7 @@ const userSlice = createSlice({
     }),
 
     // LOGIN USER
-    builder.addCase(signInUserThunk.fulfilled, (state, action) => {
+    builder.addCase(signInUserThunk.fulfilled, (state, action: PayloadAction<any>) => {
       const { firstName, lastName, email } = action.payload
       state.user = {
         firstName,

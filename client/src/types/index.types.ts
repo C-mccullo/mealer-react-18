@@ -2,7 +2,7 @@
 
 // export interface MongoDB response
 
-export interface FoodItem {
+export interface InventoryItem {
   user?: User;
   ingredient: string;
   expiry: string;
@@ -47,12 +47,12 @@ export interface MealPlan {
 
 export interface MealerState {
   // ingredientList: [],
-  inventory?: FoodItem[];
+  inventory?: InventoryItem[];
   recipes?: Recipe[];
-  mealPlan?: MealPlan;
+  mealPlans?: MealPlan;
   currentUser?: User;
   isLoggedIn: boolean;
-  isModalOpen: boolean; // wtf?
+  isModalOpen: boolean;
 }
 
 // THIS WILL PROBABLY NEED TO BE REFACTORED LATER

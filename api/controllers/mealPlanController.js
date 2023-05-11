@@ -3,7 +3,7 @@ const { flatten } = require('lodash');
 
 const MealPlan = require('../models/MealPlanModel');
 const Recipe = require('../models/RecipesModel');
-const FoodItem = require('../models/FoodItemModel');
+const InventoryItem = require('../models/InventoryItemModel');
 
 exports.newUserMealPlan = (req, res, next) => {
   console.log("new User MealPlan: ", req.user);
@@ -72,7 +72,7 @@ exports.newUserMealPlan = (req, res, next) => {
           console.log("restore foodItems: ", ingredients);
           function restoreItem(i) {
             return new Promise((resolve, reject) => {
-              FoodItem.findOneAndUpdate({
+              InventoryItem.findOneAndUpdate({
                 ingredient: i.id,
                 user: userID
               }, {
@@ -127,12 +127,12 @@ exports.newUserMealPlan = (req, res, next) => {
     });
 
     MealPlan.findOne({user: userID}).then((doc) => {
-      // adding the _id of the recipes to the key "day" of the document
       doc[day] = mealArray;
-      doc.save().then((saved) => {
-        res.status(200).send(saved)
-        next();
-      })
+      doc.save()
+        .then((saved) => {
+          res.status(200).send(saved)
+          next();
+        })
         .catch((err) => {
           res.status(500).send(err);
         })
@@ -166,7 +166,7 @@ exports.newUserMealPlan = (req, res, next) => {
         return new Promise((resolve, reject) => {
           // const portionUpsert = 1 - i.portionSize;
           // console.log("portionUpsert", portionUpsert);
-          FoodItem.findOneAndUpdate({
+          InventoryItem.findOneAndUpdate({
             ingredient: i.id,
             user: userID
           }, {

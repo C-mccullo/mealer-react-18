@@ -1,10 +1,13 @@
 // import React, { useState } from "react";
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { User } from '../types/index.types';
-import { useAppDispatch } from '../store';
+import { useAppDispatch, useAppSelector } from '../store';
 import { postNewUserThunk } from '../store/user/userSlice';
 import { isEmpty } from 'lodash';
 import { Link } from "react-router-dom";
+import { EMAIL_REGEX } from '../utils'
 
 const SignUp = () => {
   const initialState: User = {
@@ -14,25 +17,36 @@ const SignUp = () => {
     password: ""
   }
 
-  const dispatch = useAppDispatch()
-
   const { register, handleSubmit, formState: { errors } } = useForm<User>({ defaultValues: initialState });
 
-  const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  // TODO: Maybe move auth check logic to seperate hook? To much extraction?
+  const isAuth = useAppSelector<boolean>(state => {
+		const user = state.user.user;
+		const loggedIn = state.user.isLoggedIn;
+		return !isEmpty(user) && loggedIn
+	})
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home')
+    }
+  }, [navigate, isAuth])
+
   const emailValidation = {
     value: EMAIL_REGEX,
     message: 'please enter a valid email address',
   };
 
-  const onSubmit = async (formData: User) => {
-    // if form has errors do not send data
+  const onSubmit = (formData: User) => {
     console.log(errors);
     if (!isEmpty(errors)) {
       console.log(formData)
       return;
     }
-    // POST_NEW_USER -> POST -> SUCCESS -> LOGIN USER
-    await dispatch(postNewUserThunk(formData));
+    dispatch(postNewUserThunk(formData))
   }
 
   return (

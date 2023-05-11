@@ -5,11 +5,12 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
+    "populate:users": "node ./scripts/00-make-users.js",
     "populate:ingredients": "node ./scripts/01-make-ingredients.js",
     "populate:inventory": "node ./scripts/02-make-inventory.js",
     "populate:meal-plan": "node ./scripts/03-make-meal-plan.js",
     "populate:recipes": "node ./scripts/04-make-recipes.js",
-    "populate:db": "node ./scripts/01-make-ingredients.js && node ./scripts/02-make-inventory.js && node ./scripts/03-make-meal-plan.js && node ./scripts/04-make-recipes.js"
+    "populate:db": "node ./scripts/00-make-users.js && node ./scripts/01-make-ingredients.js && node ./scripts/02-make-inventory.js && node ./scripts/03-make-meal-plan.js && node ./scripts/04-make-recipes.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

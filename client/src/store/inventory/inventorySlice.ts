@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { Ingredient } from '../../types/index.types';
+import { InventoryItem } from '../../types/index.types';
 import axios, { AxiosResponse } from 'axios';
 
-const initialState: Ingredient[] = []
+const initialState: InventoryItem[] = []
 
-export const getIngredientsThunk = createAsyncThunk(
+export const getUserInventoryThunk = createAsyncThunk(
   'ingredients/getIngredients',
   async (_, { rejectWithValue }) => {
     try {
-      const res: AxiosResponse = await axios("/api/v1/ingredients", {
+      const res: AxiosResponse = await axios("/api/v1/inventory", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -21,32 +21,32 @@ export const getIngredientsThunk = createAsyncThunk(
     }
 })
 
-const ingredientSlice = createSlice({
-  name: 'ingredient',
+const inventorySlice = createSlice({
+  name: 'inventory',
   initialState,
   reducers: {
     // ADD_RECIPE
-    addIngredient: (state, action: PayloadAction) => {
+    addInventoryItem: (state, action: PayloadAction) => {
       return state
     },
     // DELETE_RECIPE
-    deleteIngredient: (state, action: PayloadAction) => {
+    deleteInventoryItem: (state, action: PayloadAction) => {
       return state
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getIngredientsThunk.pending, (state) => {
+    builder.addCase(getUserInventoryThunk.pending, (state) => {
       state
     }),
-    builder.addCase(getIngredientsThunk.fulfilled, (state, action: PayloadAction<any>) => {
+    builder.addCase(getUserInventoryThunk.fulfilled, (state, action: PayloadAction<any>) => {
       state = action.payload
     }),
-    builder.addCase(getIngredientsThunk.rejected, (state) => {
+    builder.addCase(getUserInventoryThunk.rejected, (state) => {
       // add error message to global error state obj
       state = []
     })
   }
 });
 
-export const { addIngredient, deleteIngredient } = ingredientSlice.actions;
-export default ingredientSlice.reducer;
+export const { addInventoryItem, deleteInventoryItem } = inventorySlice.actions;
+export default inventorySlice.reducer;

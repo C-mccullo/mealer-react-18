@@ -15,7 +15,7 @@ import InventoryPage from './pages/InventoryPage';
 import SignUpPage from './pages/SignUpPage';
 import AddIngredientFormPage from './pages/AddIngredientFormPage';
 import AddRecipeFormPage from './pages/AddRecipeFormPage';
-import AddRecipePage from './pages/AddRecipePage';
+import RecipePage from './pages/RecipePage.jsx';
 import MealPlanPage from './pages/MealPlanPage';
 import ErrorPage from './pages/ErrorPage';
 import GuardedOutlet from './pages/GuardedOutlet';
@@ -80,7 +80,7 @@ const AppRouter = (): JSX.Element => {
             />
             <Route
               path={"/recipes"}
-              element={<AddRecipePage/>}
+              element={<RecipePage/>}
             />
             <Route
               path={"/recipes/addrecipe"}

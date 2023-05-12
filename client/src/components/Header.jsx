@@ -34,7 +34,7 @@ const Header = () => {
             <BaseLink to="/inventory" activeclassname="activeLink">Inventory</BaseLink>
           </li>
           <li className="navBar-link">
-            <BaseLink to="/meals" activeclassname="activeLink">Meal Planner</BaseLink>
+            <BaseLink to="/mealplanner" activeclassname="activeLink">Meal Planner</BaseLink>
           </li>
           <li className="navBar-link">
             <BaseLink to="/recipes" activeclassname="activeLink">Recipes</BaseLink>

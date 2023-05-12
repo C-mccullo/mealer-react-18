@@ -1,26 +1,14 @@
 import React from "react";
-import RecipeListIngredient from "./RecipeListIngredient";
+import RecipeCard from "./RecipeCard";
 
 
-const RecipeList = (props) => {
+const RecipeList = ({ recipes }) => {
   return (
     <div className="recipeList">
       {
-        props.recipes.map((recipe, i) => {
+        (recipes || []).map((recipe) => {
           return (
-            <div className="recipe" key={`recipe-${recipe._id}`}>
-              <div className="recipeItem-header">
-                <h3>{recipe.name}</h3>
-              </div>
-              <ul>
-                {
-                  recipe.ingredients.map((ingredient, index) => {
-                    return <RecipeListIngredient key={ingredient._id} ingredient={ingredient}/>
-                  }) 
-                }
-              </ul>
-              <span className="deleteRecipe" role="button" onClick={ () => props.deleteRecipe(recipe._id) }>Delete Recipe</span>
-            </div>
+            <RecipeCard recipe={ recipe }/>
           )
         })
       }

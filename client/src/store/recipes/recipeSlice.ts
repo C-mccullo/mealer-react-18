@@ -7,14 +7,13 @@ const initialState: Recipe[] = []
 
 export const getUserRecipesThunk = createAsyncThunk(
   'recipes/getUserRecipes',
-  async (userData: any, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const res: AxiosResponse = await axios("/api/v1/recipes", {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          data: JSON.stringify(userData)
         });
       return res.data;
     } catch(err) {
@@ -35,7 +34,7 @@ const recipeSlice = createSlice({
   extraReducers: builder => {
     // GET_USER_RECIPES
     builder.addCase(getUserRecipesThunk.fulfilled, (state, action: PayloadAction<any>) => {
-      state = action.payload
+      return action.payload
     }),
     builder.addCase(getUserRecipesThunk.pending, (state) => {
       // state.isLoggedIn = false;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MealPlanList = ({mealPlan}) => {
+const MealPlanChart = ({mealPlan}) => {
   return(
     <div className="mealPlanList">
       { Object.keys(mealPlan).reverse().map((keyName, index) => {
@@ -26,4 +26,4 @@ const MealPlanList = ({mealPlan}) => {
   )
 }
 
-export default MealPlanList;
+export default MealPlanChart;

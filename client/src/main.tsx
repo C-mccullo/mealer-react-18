@@ -1,17 +1,20 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
+import { PersistGate } from 'redux-persist/integration/react'
 import AppRouter from './Router';
-import { store } from './store';
+import { store, persistedStore } from './store';
 
 // import './index.css';
-
-// TODO: move this hook inside App function with the rest of the router and store setup
-
+// TODO: Add A Loader Component to `loading`
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={ store }>
-      <AppRouter/>
+      <PersistGate
+        loading={null}
+        persistor={persistedStore}>
+        <AppRouter/>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 )

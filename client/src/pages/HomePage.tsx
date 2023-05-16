@@ -1,13 +1,15 @@
 
-import React from "react";
 import { Link } from "react-router-dom";
 import RiceIcon from "../components/icons/RiceIcon";
 import { signOutUser } from '../store/user/userSlice';
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch } from "../store";
 const HomePage = () => {
   // const isLoggedIn = useAppSelector(state => state.user.isLoggedIn);
-  const logout = useAppDispatch(signOutUser)
+  const dispatch = useAppDispatch();
 
+  const logout = () => {
+    dispatch(signOutUser())
+  }
   return (
     <div className="homeContainer">
       <div className="home">
@@ -23,7 +25,7 @@ const HomePage = () => {
           </Link>
           <button
             className="button button-red"
-            onClick={ logout }
+            onClick={logout}
           >
             Log Out
           </button>

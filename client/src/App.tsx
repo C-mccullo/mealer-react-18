@@ -3,8 +3,9 @@ import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from './store';
 import { getIngredientsThunk } from './store/ingredients/IngredientSlice';
 import Header from './components/Header';
-import './styles/index.scss';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
+import Footer from './components/Footer';
+// import './styles/index.scss';
+
 // Get Ingredients right off the bat on load of app (this logic should live outside of this component)
 const App = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +17,10 @@ const App = () => {
   return (
     <>
       <Header/>
-      <Outlet/>
+      <main className='bg-cream min-h-[calc(100vh-60px)]'>
+        <Outlet/>
+      </main>
+      <Footer/>
     </>
   )
 }

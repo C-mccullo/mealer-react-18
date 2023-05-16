@@ -1,12 +1,11 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../store'
 import { getUserRecipesThunk } from '../store/recipes/recipeSlice'
 import { Recipe } from '../types/index.types'
 
 
 import RecipeList from "../components/RecipeList";
-import AddRecipeForm from "../components/AddRecipeForm";
+import SearchRecipeForm from "../components/SearchRecipeForm";
 
 const RecipePage = () => {
 
@@ -23,9 +22,8 @@ const RecipePage = () => {
 
   return (
     <div>
-      <Link className="addFormLink" to="/recipes/addrecipe">Make a New Recipe</Link>
       {/* TODO: TESTING ONLY: remove after */}
-      <AddRecipeForm/>
+      <SearchRecipeForm/>
       <RecipeList
         recipes={recipes}
       />

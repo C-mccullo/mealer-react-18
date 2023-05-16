@@ -4,17 +4,17 @@ import {
   Routes
 } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from './store/index.ts';
-import { getIngredientsThunk } from './store/ingredients/IngredientSlice.ts'
-import { getUserRecipesThunk } from './store/recipes/recipeSlice.ts'
+// import { getIngredientsThunk } from './store/ingredients/IngredientSlice.ts'
+// import { getUserRecipesThunk } from './store/recipes/recipeSlice.ts'
 import { isEmpty } from 'lodash';
 
 import App from './App.tsx';
-import HomePage from './pages/HomePage'
+import HomePage from './pages/HomePage.tsx'
 import LoginPage from './pages/LoginPage';
 import InventoryPage from './pages/InventoryPage';
 import SignUpPage from './pages/SignUpPage';
-import AddIngredientFormPage from './pages/AddIngredientFormPage';
-import AddRecipeFormPage from './pages/AddRecipeFormPage';
+// import AddInventoryFormPage from './pages/AddInventoryFormPage.jsx'
+import SearchRecipesFormPage from './pages/SearchRecipesPage.jsx';
 import RecipePage from './pages/RecipePage.jsx';
 import MealPlanPage from './pages/MealPlanPage';
 import ErrorPage from './pages/ErrorPage';
@@ -84,7 +84,7 @@ const AppRouter = (): JSX.Element => {
             />
             <Route
               path={"/recipes/addrecipe"}
-              element={<AddRecipeFormPage/>}
+              element={<SearchRecipesFormPage/>}
             />
             <Route
               path={"/mealplanner"}

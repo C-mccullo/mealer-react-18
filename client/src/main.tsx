@@ -4,9 +4,9 @@ import { createRoot } from 'react-dom/client';
 import { PersistGate } from 'redux-persist/integration/react'
 import AppRouter from './Router';
 import { store, persistedStore } from './store';
+import './index.css';
 
-// import './index.css';
-// TODO: Add A Loader Component to `loading`
+// TODO: Add A Loader Component to PersistGate `loading`
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={ store }>

@@ -55,8 +55,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // ADD_RECIPE_TO_USER
-
     signOutUser: (state) => {
       state.user = initialState.user;
       state.isLoggedIn = false;

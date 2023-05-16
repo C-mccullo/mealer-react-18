@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../store';
 import { signInUserThunk } from '../store/user/userSlice';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-
+import Cta from '../components/base/Cta';
 export interface LoginForm {
   email: string;
   password: string;
@@ -72,10 +72,13 @@ const LoginModal = () => {
                 required: true
               })}
             />
-            <input
-              className="button button-blue"
+            <Cta
+              color={'lightTertiary'}
               type="submit"
-              value="Submit" />
+              value="Submit"
+            >
+              <span>submit</span>
+            </Cta>
           </div>
         </form>
         <p>Don't have an account? <Link className="" to="/signup">Sign up</Link></p>

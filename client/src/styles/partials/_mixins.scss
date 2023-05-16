@@ -4,12 +4,6 @@ $sm: 767px;
 $md: 991px;
 $lg: 1199px;
 
-@mixin iphone4 {
-  @media (max-width: #{$iphone4}) {
-    @content;
-  }
-}
-
 @mixin xxs {
   @media (max-width: #{$xxs}) {
     @content;

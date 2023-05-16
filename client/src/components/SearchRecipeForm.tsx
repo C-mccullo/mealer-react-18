@@ -4,14 +4,16 @@ import { useForm, Controller } from 'react-hook-form';
 import { Ingredient } from '../types/index.types'
 import BaseTypeAheadForm from './base/TypeAhead';
 
-interface AddRecipeFormState {
-  name: string;
-  ingredients: Ingredient[]
+interface SearchRecipeFormState {
+  mealType?: 'Breakfast' | 'Lunch' | 'Dinner';
+  ingredients: Ingredient[];
+  diet?: 'high-fiber' | 'high-protein' | 'low-carb' | 'low-fat' | 'low-sodium';
 }
 
-const AddRecipeForm = () => {
-  const initialFormState: AddRecipeFormState = {
-    name: "",
+const SearchRecipeForm = () => {
+  const initialFormState: SearchRecipeFormState = {
+    mealType: undefined,
+    diet: undefined,
     ingredients: [],
   }
   const {
@@ -28,21 +30,12 @@ const AddRecipeForm = () => {
     // make form submit handler
   }
 
-  // Form will be its own route as not to have cluttered the UX
-  // Input for the Recipe Name (do a check against the existing user recipes to make sure its not already taken)
-  // A Type Ahead to get the ingredients from list of ingredients to add to the recipe
-  // LATER: -> a list with incrementers beside each Ingredient added to increase the volume of an ingredient added to each recipe
+  //
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-row">
-        <input
-          className="form-input"
-          {...register('name')}
-          required
-          type="text"
-          placeholder="Enter Recipe Name"
-        />
+
         <ul className="recipe-Ingredients">
           {/* Show ingredients added via typeahead here? */}
         </ul>
@@ -64,9 +57,9 @@ const AddRecipeForm = () => {
                   onChange={onChange}
                   id="recipeFormTypeAhead"
                   inputRef={ref}
-                  labelKey="name"
-                  multiple
-                  clearButton
+                  labelKey='name'
+                  valueKey='name'
+                  isMulti
                   className={fieldState.invalid && "is-invalid"}
                   aria-describedby="typeaheadError"
                   options={ingredients}
@@ -86,4 +79,4 @@ const AddRecipeForm = () => {
   )
 }
 
-export default AddRecipeForm;
+export default SearchRecipeForm;

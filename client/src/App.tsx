@@ -17,7 +17,7 @@ const App = () => {
   return (
     <>
       <Header/>
-      <main className='bg-cream min-h-[calc(100vh-60px)]'>
+      <main className='bg-bone min-h-[calc(100vh-60px)]'>
         <Outlet/>
       </main>
       <Footer/>

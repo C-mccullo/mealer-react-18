@@ -3,31 +3,28 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../types/index.types';
-import { useAppDispatch, useAppSelector } from '../store';
+import useAuthCheck from '../hooks/useAuthCheck';
+import { useAppDispatch } from '../store';
 import { postNewUserThunk } from '../store/user/userSlice';
 import { isEmpty } from 'lodash';
 import { Link } from "react-router-dom";
+import Input from '../components/base/Input';
+import Cta from '../components/base/Cta';
 import { EMAIL_REGEX } from '../utils'
 
 const SignUp = () => {
-  const initialState: User = {
+  const initialState = {
     firstName: "",
     lastName: "",
     email: "",
     password: ""
   }
 
-  const { register, handleSubmit, formState: { errors } } = useForm<User>({ defaultValues: initialState });
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialState });
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  // TODO: Maybe move auth check logic to seperate hook? To much extraction?
-  const isAuth = useAppSelector<boolean>(state => {
-		const user = state.user.user;
-		const loggedIn = state.user.isLoggedIn;
-		return !isEmpty(user) && loggedIn
-	})
+  const isAuth = useAuthCheck();
 
   useEffect(() => {
     if (isAuth) {
@@ -57,45 +54,53 @@ const SignUp = () => {
             onSubmit={handleSubmit(onSubmit)}>
             <div className="form-row">
               <h1>Sign Up</h1>
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                name="firstName"
-                className="form-input"
-                type="text"
-                {...register('firstName', { required: true })}
+              <Input
+                type={'text'}
+                label={'First Name'}
+                name={'firstName'}
+                register={register}
+                validationSchema={{ required: true }}
+                errors={errors}
               />
-              <label htmlFor="lastName">Last Name:</label>
-              <input
-                name="lastName"
-                className="form-input"
-                type="text"
-                {...register('lastName', {
+              <Input
+                type={'text'}
+                label={'Last Name'}
+                name={'lastName'}
+                register={register}
+                validationSchema={{
                   required: true,
                   pattern: /^[A-Za-z]+$/i
-                })}
+                }}
+                errors={errors}
               />
-              <label htmlFor="email">Email:</label>
-              <input
-                name="email"
-                className="form-input"
-                type="email"
-                {...register('email', {
+              <Input
+                type={'email'}
+                label={'Email'}
+                name={'email'}
+                register={register}
+                validationSchema={{
                   required: true,
                   pattern: emailValidation
-                })}
+                }}
+                errors={errors}
               />
-              <label
-                htmlFor="password">Password:</label>
-              <input
-                name="password"
-                className="form-input"
-                type="text"
-                {...register('password', { required: true })}
+              <Input
+                type={'password'}
+                label={'Password'}
+                name={'password'}
+                register={register}
+                validationSchema={{
+                  required: true
+                }}
+                errors={errors}
               />
-              <input
-                className="button button-green"
+              <Cta
+                color={'lightTertiary'}
                 type="submit"
-                value="Submit" />
+                value="Submit"
+              >
+                <span>submit</span>
+              </Cta>
             </div>
             <p>Already a user? <Link to="/login">Log in</Link></p>
           </form>

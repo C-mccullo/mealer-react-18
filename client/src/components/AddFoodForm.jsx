@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import { AsyncTypeahead } from "react-bootstrap-typeahead";
-// import DatePicker from "react-datepicker";
 import { dayJs as day } from 'dayjs';
 import axios from 'axios';
 class AddFoodForm extends Component {

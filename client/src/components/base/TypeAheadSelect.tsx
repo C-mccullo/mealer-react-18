@@ -3,7 +3,7 @@ import Select from 'react-select';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Option = string | Record<string, any>;
 
-interface BaseTypeAheadInputProps {
+interface BaseTypeAheadSelectProps {
   labelKey: string,
   valueKey: string
   isMulti: boolean;
@@ -12,13 +12,13 @@ interface BaseTypeAheadInputProps {
   [x: string | number | symbol]: unknown;
 }
 
-const BaseTypeAheadInput = ({
+const BaseTypeAheadSelect = ({
   labelKey,
   valueKey,
   options,
   isMulti,
   onChange
-}: BaseTypeAheadInputProps): JSX.Element => {
+}: BaseTypeAheadSelectProps): JSX.Element => {
   const handleOnChange = (e) => {
     console.log('typeahead change: ', e);
     onChange(e)
@@ -37,4 +37,4 @@ const BaseTypeAheadInput = ({
   )
 }
 
-export default BaseTypeAheadInput
+export default BaseTypeAheadSelect

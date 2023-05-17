@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store'
 import { useForm, Controller } from 'react-hook-form';
 import { Ingredient } from '../types/index.types'
-import BaseTypeAheadForm from './base/TypeAhead';
+import BaseTypeAheadSelect from './base/TypeAheadSelect';
 
 interface SearchRecipeFormState {
   mealType?: 'Breakfast' | 'Lunch' | 'Dinner';
@@ -52,7 +52,7 @@ const SearchRecipeForm = () => {
               fieldState
             }) => (
               <>
-                <BaseTypeAheadForm
+                <BaseTypeAheadSelect
                   name={name}
                   onChange={onChange}
                   id="recipeFormTypeAhead"

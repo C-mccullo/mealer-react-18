@@ -6,18 +6,20 @@ import { signInUserThunk } from '../store/user/userSlice';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import Cta from '../components/base/Cta';
+import Input from '../components/base/Input';
+
 export interface LoginForm {
   email: string;
   password: string;
 }
 
-const LoginModal = () => {
+const LoginForm = () => {
 
   const initialState: LoginForm = {
     email: undefined,
     password: undefined
   }
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({ defaultValues: initialState });
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialState });
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
@@ -44,33 +46,28 @@ const LoginModal = () => {
   }
 
   return (
-    <div className="login">
-      <div className="form-container">
+    <div className="block w-full">
+      <div className="">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-row">
-            <h1>Log In</h1>
-            <label
-              className="form-label"
-              htmlFor="email">User Email:</label>
-            <input
-              name="email"
-              className="form-input"
-              type="email"
-              {...register('email', {
-                required: true
-              })}
+            <h2 className='text-2xl'>Log In</h2>
+            <Input
+              type={'email'}
+              label={'User Email'}
+              name={'email'}
+              register={register}
+              validationSchema={{ required: true }}
+              errors={errors}
             />
-            <label
-              className="form-label"
-              htmlFor="password">Password:
-            </label>
-            <input
-              name="password"
-              className="form-input"
-              type="password"
-              {...register('password', {
-                required: true
-              })}
+          </div>
+          <div>
+            <Input
+              type={'password'}
+              label={'Password'}
+              name={'password'}
+              register={register}
+              validationSchema={{ required: true }}
+              errors={errors}
             />
             <Cta
               color={'lightTertiary'}
@@ -80,11 +77,13 @@ const LoginModal = () => {
               <span>submit</span>
             </Cta>
           </div>
+          <div>
+            <p>Don't have an account? <Link className="" to="/signup">Sign up</Link></p>
+          </div>
         </form>
-        <p>Don't have an account? <Link className="" to="/signup">Sign up</Link></p>
       </div>
     </div>
   )
 }
 
-export default LoginModal;
+export default LoginForm;

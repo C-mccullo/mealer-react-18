@@ -27,11 +27,12 @@ const FormInput = ({
   validationSchema,
   placeholder,
   errors,
+  ...props
 }: FormInputProps) => {
   const formLabel = labelId || uuid();
 
   return (
-    <div className="py-2 relative">
+    <div className="relative">
       <label
         htmlFor={formLabel}
         className="block text-sm font-bold">
@@ -42,6 +43,7 @@ const FormInput = ({
         id={formLabel}
         name={name}
         {...register(name, validationSchema)}
+        {...props}
         type={type}
         aria-invalid={errors[label] ? 'true' : 'false'}
         aria-describedby={`err-${formLabel}`}

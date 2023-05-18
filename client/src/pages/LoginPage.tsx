@@ -12,6 +12,7 @@ const LoginRoute = () => (
             src="./src/assets/MealerShapeCollage1.jpg" alt="" />
         </div>
         <div className='p-4 md:p-6 lg:p-8'>
+          <h1 className='text-2xl'>Log In</h1>
           <LoginForm />
         </div>
       </Card>

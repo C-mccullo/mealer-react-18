@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { isEmpty } from 'lodash';
 import { useAppDispatch, useAppSelector } from '../store';
 import { signInUserThunk } from '../store/user/userSlice';
-import { Link } from "react-router-dom";
+import BaseLink from './base/Link';
 import { useNavigate } from 'react-router-dom';
 import Cta from '../components/base/Cta';
 import Input from '../components/base/Input';
+import Form from '../components/base/Form';
 
 export interface LoginForm {
   email: string;
@@ -47,41 +48,43 @@ const LoginForm = () => {
 
   return (
     <div className="block w-full">
-      <div className="">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-row">
-            <h2 className='text-2xl'>Log In</h2>
-            <Input
-              type={'email'}
-              label={'User Email'}
-              name={'email'}
-              register={register}
-              validationSchema={{ required: true }}
-              errors={errors}
-            />
-          </div>
-          <div>
-            <Input
-              type={'password'}
-              label={'Password'}
-              name={'password'}
-              register={register}
-              validationSchema={{ required: true }}
-              errors={errors}
-            />
-            <Cta
-              color={'lightTertiary'}
-              type="submit"
-              value="Submit"
-            >
-              <span>submit</span>
-            </Cta>
-          </div>
-          <div>
-            <p>Don't have an account? <Link className="" to="/signup">Sign up</Link></p>
-          </div>
-        </form>
-      </div>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group>
+          <Input
+            type={'email'}
+            label={'User Email'}
+            name={'email'}
+            register={register}
+            autoComplete='off'
+            validationSchema={{ required: true }}
+            errors={errors}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Input
+            type={'password'}
+            label={'Password'}
+            name={'password'}
+            register={register}
+            autoComplete='off'
+            validationSchema={{ required: true }}
+            errors={errors}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Cta
+            color={'lightTertiary'}
+            type="submit"
+            value="Submit"
+          >
+            <span>submit</span>
+          </Cta>
+        </Form.Group>
+        <Form.Group>
+          <p>Don't have an account? <BaseLink to="/signup">Sign up</BaseLink></p>
+        </Form.Group>
+      </Form>
     </div>
   )
 }

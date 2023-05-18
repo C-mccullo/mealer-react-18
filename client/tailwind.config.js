@@ -20,6 +20,7 @@ export default {
         lightSecondary: '#EB7260',
         lightTertiary: '#77C5F7',
         tertiary: '#0071BC',
+        darkTertiary: '#0062A3',
         code: {
           highlight: 'rgb(125 211 252 / 0.1)',
         },

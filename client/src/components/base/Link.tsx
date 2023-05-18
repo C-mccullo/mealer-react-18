@@ -24,7 +24,7 @@ const BaseLink = ({
   return (
     <NavLink
       to={to}
-      className={clsx(isExternal && externalLinkClass, "rounded-lg px-3 py-2 tracking-wider")}
+      className={clsx(isExternal && externalLinkClass, "text-tertiary transition hover:text-darkTertiary hover:underline hover:underline-offset-4")}
       {...props}
     >
       {children}
